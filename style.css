@@ -40,12 +40,20 @@ html, body {
 }
 
 /* Шаг 4: контент внутри левой панели */
-.search {
-    position: relative;
+.search {  
     margin-top: 16px;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding-bottom: 7px;
+    position: relative;
+    height: 40px;
+}
+
+.bi-search{
+    position: absolute;
+    left: 41px;
+    color: #828282;
 }
 
 #serch_chats {
@@ -61,6 +69,7 @@ html, body {
 
 .chats {
     overflow-y: auto;
+    position: relative;
     flex-grow: 1;
 }
 
@@ -73,6 +82,41 @@ html, body {
 }
 .rp{
     color: #F19226;
+}
+
+.bi-chat{
+    width: 28px;
+    height: 28px;
+}
+
+.chat-choise{
+    background-color: #D4D4D4;
+}
+
+.bi-gear-fill{
+    width: 28px;
+    height: 28px;
+}
+
+.chat-choise, .settings-choise {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;   /* Текст прижмётся к низу */
+    align-items: center;         /* По центру по горизонтали */
+    width: 63px;
+    height: 57px;
+    text-decoration: none;       /* если это ссылки */
+    color: #373737;              /* чтобы не было стандартного синего */
+}
+
+.bot-left{
+    vertical-align: bottom;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    gap: 30px;
 }
 
 /* Чаты */
@@ -137,12 +181,28 @@ html, body {
 }
 
 .message-field{
-    bottom: 24px;
-    width: 88%;
-    position: absolute;
+    position: relative;
+    width: 100%;
     height: 40px;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
     background-color: #E6E6E6;
     padding-left: 16px;
+}
+
+.bi-image{
+    position: absolute;
+    right: 32px;
+    width: 24px;
+    height: 24px;
+    color: #828282;
+}
+
+.bot{
+    width: 88%;
+    bottom: 24px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 40px;
 }
