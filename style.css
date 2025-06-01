@@ -1,0 +1,93 @@
+/* Шаг 1: базовая настройка */
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Шаг 2: основной layout */
+.main {
+    display: flex;
+    flex-direction: row;  /* ← чтобы блоки шли в строку */
+    height: 100%;         /* ← берём всю высоту body */
+}
+
+/* Шаг 3: колонки */
+.left, .main_chat, .info {
+    height: 100%;
+}
+
+.left {
+    width: 25%;
+    border-right: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_chat {
+    width: 55%;
+    background-color: #f8f8f8;
+}
+
+.info {
+    width: 20%;
+    background-color: #f0f0f0;
+}
+
+/* Шаг 4: контент внутри левой панели */
+.search {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+#serch_chats {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 80%;
+}
+
+.chats {
+    overflow-y: auto;
+    flex-grow: 1;  /* ← чтобы занять всё оставшееся пространство */
+}
+
+/* Чаты */
+.chat {
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+.chat_logo {
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: 7px;
+}
+
+.chat_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.chat_name {
+    margin-bottom: 10px;
+}
+
+.chat_text {
+    color: gray;
+}
