@@ -30,7 +30,9 @@ html, body {
 }
 
 .chat_window {
-    width: 55%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     background-color: #f8f8f8;
 }
 
@@ -233,19 +235,35 @@ html, body {
 
 .bi-image{
     position: absolute;
-    right: 32px;
+    right: 110px;
     width: 24px;
     height: 24px;
     color: #828282;
 }
 
 .bot{
+    left: 50%; 
+    transform: translateX(-50%);
     width: 88%;
     bottom: 24px;
     position: absolute;
     display: flex;
     align-items: center;
     height: 40px;
+}
+
+#sendButton{
+    margin-left: 10px;
+    border-radius: 8px;
+    background-color: #F19226;
+    transition: background-color 0.3s ease;
+    border: none;
+    height: 30px;
+}
+
+#sendButton:hover{
+    background-color: #BE721B;
+    cursor: pointer;
 }
 
 /* info */
@@ -289,4 +307,48 @@ html, body {
 .info-button:hover{
     background-color: #292929;
     cursor: pointer;
+}
+
+/* messages */
+.messages-list {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 10px;
+    overflow-y: auto;
+    height: 100%;
+    padding-bottom: 75px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    display: inline-block;
+    clear: both;
+    word-wrap: break-word;
+}
+
+/* Исходящее сообщение (отправлено текущим пользователем) */
+.message.outgoing {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+    align-self: flex-end; 
+}
+
+/* Входящее сообщение (получено от собеседника) */
+.message.incoming {
+    background-color: #FFFFFF;
+    align-self: flex-start;
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+    align-self: flex-start;
 }
