@@ -7,6 +7,7 @@ let messagesList = document.querySelector('.messages-list');
 
 // Подключение к WebSocket
 function connectWebSocket(userId) {
+    console.log("web-sock for", userId);
   socket = new WebSocket(`ws://${location.host}`);
 
   socket.addEventListener('open', () => {
@@ -34,8 +35,9 @@ function connectWebSocket(userId) {
 }
 
 window.currentUserId = localStorage.getItem('userId');
-console.log(window.currentUserId);
+
 if (window.currentUserId) {
+    console.log(window.currentUserId);
   connectWebSocket(window.currentUserId);
 } else {
   // Если нет userId — редиректим на страницу входа
