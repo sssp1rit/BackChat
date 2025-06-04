@@ -17,6 +17,10 @@ document.getElementById('loginBtn').addEventListener('click', async () => {
     const data = await response.json();
     if (response.ok) {
 
+
+      // Сохраняем userId
+      localStorage.setItem('userId', data.userId);
+
         window.location.href = 'index.html';
     } else {
         alert(`⚠️ Ошибка`);

@@ -17,7 +17,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg>
-                <input id="serch_chats" placeholder="Search chats" type="search">
+                <input id="userSearch" placeholder="Search chats" type="search">
+                <ul id="searchResults"></ul>
             </div>
             <div class="chats">
                 <div class="saved">
@@ -56,12 +57,14 @@
                     Name 
                 </div>
             </div>
+            <div class="messages-list" style="overflow-y:auto; height:calc(100% - 80px - 50px); padding: 10px;"></div>
             <div class="bot">
-                <input class="message-field" placeholder="Enter your message" type="text" autofocus>
+                <input id="messageInput" class="message-field" placeholder="Enter your message" type="text" autofocus>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
-            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
-            </svg>
+                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
+                </svg>
+                <button id="sendButton">Отправить</button>
             </div>
             
         </div>
@@ -74,6 +77,8 @@
             
         </div>
     </div>
+
+    <script src="script.js"></script>
     
 </body>
 </html>

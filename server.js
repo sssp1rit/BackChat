@@ -2,13 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const http = require('http');
+const WebSocket = require('ws');
 require('dotenv').config();
 
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,8 +23,65 @@ mongoose.connect(process.env.MONGO_URI, {
 const authRoutes = require('./routes/auth');
 app.use('/api', authRoutes);
 
-// Запуск сервера
+const userRoutes = require('./routes/users');
+app.use('/api/users', userRoutes);
+
+const searchRoutes = require('./routes/search');
+app.use('/api/search', searchRoutes);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Создаём HTTP сервер из Express приложения
+const server = http.createServer(app);
+
+// Создаём WebSocket сервер поверх HTTP сервера
+const wss = new WebSocket.Server({ server });
+
+// Хранилище подключённых пользователей: userId -> ws
+const clients = new Map();
+
+wss.on('connection', (ws) => {
+  console.log('Новое WebSocket соединение');
+
+  ws.on('message', (message) => {
+    console.log('Получено сообщение через WS:');
+    try {
+      const data = JSON.parse(message);
+
+      if (data.type === 'register') {
+        // Регистрация пользователя
+        clients.set(data.userId, ws);
+        ws.userId = data.userId;
+        console.log(`Пользователь зарегистрирован в WS: ${data.userId}`);
+      }
+
+      if (data.type === 'message') {
+        const toWs = clients.get(data.to);
+        if (toWs && toWs.readyState === WebSocket.OPEN) {
+          // Отправляем сообщение получателю
+          toWs.send(JSON.stringify({
+            type: 'message',
+            from: data.from,
+            text: data.text,
+          }));
+        }
+      }
+
+    } catch (err) {
+      console.error('Ошибка обработки сообщения WS:', err);
+    }
+  });
+
+  ws.on('close', () => {
+    if (ws.userId) {
+      clients.delete(ws.userId);
+      console.log(`Пользователь ${ws.userId} отключился от WS`);
+    }
+  });
+});
+
+// Запускаем сервер на нужном порту
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
 });

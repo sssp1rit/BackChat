@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -11,7 +13,8 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Пользователь уже существует' });
     }
 
-    const newUser = new User({ username, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ message: 'Регистрация успешна' });
   } catch (error) {
@@ -24,11 +27,14 @@ router.post('/login', async (req, res) => {
   if (!username || !password) return res.status(400).json({ message: 'Введите имя и пароль' });
 
   const user = await User.findOne({ username });
-  if (!user || user.password !== password) {
-    return res.status(401).json({ message: 'Неверные имя или пароль' });
-  }
+  if (!user) return res.status(401).json({ message: 'Пользователь не найден' });
 
-  res.json({ message: 'Вход успешен' });
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) return res.status(401).json({ message: 'Неверный пароль' });
+    res.json({
+      message: 'login success',
+      userId: user._id.toString()  // обязательно отправь ID
+    });
 });
 
 module.exports = router;
