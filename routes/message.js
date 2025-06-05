@@ -17,7 +17,7 @@ router.get('/:userId', async (req, res) => {
 
     res.json(messages.map(m => ({
       text: m.text,
-      fromSelf: m.from.toString() === currentUserId
+      from: m.from.toString()
     })));
   } catch (err) {
     res.status(500).json({ error: 'Ошибка при получении сообщений' });

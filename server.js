@@ -29,6 +29,13 @@ app.use('/api/users', userRoutes);
 const searchRoutes = require('./routes/search');
 app.use('/api/search', searchRoutes);
 
+const messageRoutes = require('./routes/message');
+app.use('/api/messages', messageRoutes);
+
+
+const Message = require('./models/Message');
+app.use('/api/messages', Message);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Создаём HTTP сервер из Express приложения
@@ -56,15 +63,26 @@ wss.on('connection', (ws) => {
       }
 
       if (data.type === 'message') {
-        const toWs = clients.get(data.to);
-        if (toWs && toWs.readyState === WebSocket.OPEN) {
-          // Отправляем сообщение получателю
-          toWs.send(JSON.stringify({
-            type: 'message',
-            from: data.from,
-            text: data.text,
-          }));
-        }
+        const newMessage = new Message({
+          from: data.from,
+          to: data.to,
+          text: data.text
+        });
+        newMessage.save().then(() => {
+    console.log('💾 Сообщение сохранено в MongoDB');
+
+    // 2. Отправляем сообщение получателю через WebSocket
+    const toWs = clients.get(data.to);
+    if (toWs && toWs.readyState === WebSocket.OPEN) {
+      toWs.send(JSON.stringify({
+        type: 'message',
+        from: data.from,
+        text: data.text,
+      }));
+    }
+  }).catch(err => {
+    console.error('❌ Ошибка при сохранении сообщения в MongoDB:', err);
+  });
       }
 
     } catch (err) {

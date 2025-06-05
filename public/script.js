@@ -142,22 +142,39 @@ resultsList.addEventListener('click', async (e) => {
 
 // Открытие чата
 async function openChatWithUser(userId) {
-  const resUser = await fetch(`/api/users/${userId}`);
-  if (!resUser.ok) {
-    const text = await resUser.text();
-    console.error('Ошибка запроса /api/user:', text);
-    return;
+  try {
+    const resUser = await fetch(`/api/users/${userId}`);
+    if (!resUser.ok) {
+      const text = await resUser.text();
+      console.error('Ошибка запроса /api/user:', text);
+      return;
+    }
+
+    const userData = await resUser.json();
+
+    document.querySelector('.chat-title').textContent = userData.name;
+    document.querySelector('.name-info').textContent = userData.name;
+
+    window.currentChatUserId = userId;
+    messagesList.innerHTML = ''; // очищаем сообщения
+
+    // Загрузка истории сообщений
+    const res = await fetch(`/api/messages/${userId}?currentUserId=${window.currentUserId}`);
+    const history = await res.json();
+
+    history.forEach(msg => {
+      const msgEl = document.createElement('div');
+      msgEl.className = 'message ' + (String(msg.from) === String(window.currentUserId) ? 'outgoing' : 'incoming');
+      msgEl.textContent = msg.text;
+      console.log(msg.from, window.currentUserId);
+      messagesList.appendChild(msgEl);
+    });
+
+    messagesList.scrollTop = messagesList.scrollHeight;
+
+  } catch (err) {
+    console.error('Ошибка в openChatWithUser:', err);
   }
-
-  const userData = await resUser.json();
-
-  document.querySelector('.chat-title').textContent = userData.name;
-  document.querySelector('.name-info').textContent = userData.name;
-
-  window.currentChatUserId = userId;
-  messagesList.innerHTML = ''; // очищаем сообщения
-
-  // Здесь можно добавить загрузку истории сообщений, если нужно
 }
 
 // Привязка к кнопке отправки
