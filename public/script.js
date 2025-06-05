@@ -72,7 +72,40 @@ function sendMessage(text, toUserId) {
   msgEl.className = 'message outgoing';
   msgEl.textContent = text;
   messagesList.appendChild(msgEl);
+
+  messagesList.scrollTop = messagesList.scrollHeight;
 }
+
+document.getElementById('messageInput').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault(); // Чтобы не было переноса строки
+    const input = event.target;
+    const text = input.value.trim();
+    if (text && window.currentChatUserId) {
+      sendMessage(text, window.currentChatUserId);
+      input.value = '';
+    }
+  }
+});
+
+const messageInput = document.getElementById('messageInput');
+
+// Фокус по умолчанию при загрузке страницы
+messageInput.focus();
+
+// Повторно ставим фокус при любом клике по странице,
+// кроме самого поля ввода, чтобы не сбивалось вручную
+document.addEventListener('click', (e) => {
+  if (
+    e.target.closest('input')
+  ) {
+    return;
+  }else{
+    messageInput.focus();
+  }
+
+  
+});
 
 // Поиск пользователей
 searchInput.addEventListener('input', async () => {

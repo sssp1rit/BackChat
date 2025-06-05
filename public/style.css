@@ -30,8 +30,9 @@ html, body {
 }
 
 .chat_window {
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
+    
     flex-direction: column;
     background-color: #f8f8f8;
 }
@@ -193,11 +194,6 @@ html, body {
 
 
 /* открытый чат */
-.chat_window{
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
 
 .chat_header{
     display: flex;
@@ -227,6 +223,7 @@ html, body {
     border: 1px solid #E0E0E0;
     background-color: #E6E6E6;
     padding-left: 16px;
+    padding-right: 40px;
 }
 
 .message-field:focus{
@@ -234,6 +231,7 @@ html, body {
 }
 
 .bi-image{
+    right: 100px;
     position: absolute;
     right: 110px;
     width: 24px;
@@ -242,14 +240,14 @@ html, body {
 }
 
 .bot{
-    left: 50%; 
-    transform: translateX(-50%);
+    position: relative;
     width: 88%;
-    bottom: 24px;
-    position: absolute;
     display: flex;
     align-items: center;
+    margin: 0 auto;
+    margin-bottom: 24px;
     height: 40px;
+    justify-content: center;
 }
 
 #sendButton{
@@ -311,16 +309,16 @@ html, body {
 
 /* messages */
 .messages-list {
-    max-width: 100%;
-    width: 100%;
+    flex: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     gap: 4px;
     padding: 10px;
-    overflow-y: auto;
-    height: 100%;
-    padding-bottom: 75px;
+    
+    padding-bottom: 10px;
+    
+    min-height: 0;
 }
 
 .message {
@@ -330,7 +328,7 @@ html, body {
     border-radius: 12px;
     font-size: 14px;
     line-height: 1.4;
-    display: inline-block;
+    display: block;
     clear: both;
     word-wrap: break-word;
 }
