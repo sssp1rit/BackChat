@@ -19,7 +19,7 @@ document.getElementById('loginBtn').addEventListener('click', async () => {
 
 
       // Сохраняем userId
-      localStorage.setItem('userId', data.userId);
+      sessionStorage.setItem('userId', data.userId);
       console.log('Сохраняем userId:', data.userId);
 
         window.location.href = 'index.html';

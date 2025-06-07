@@ -36,6 +36,9 @@ app.use('/api/messages', messageRoutes);
 const Message = require('./models/Message');
 app.use('/api/messages', Message);
 
+const chatRoutes = require('./routes/chat');
+app.use(chatRoutes);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Создаём HTTP сервер из Express приложения

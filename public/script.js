@@ -12,6 +12,7 @@ function connectWebSocket(userId) {
 
   socket.addEventListener('open', () => {
     console.log('✅ WebSocket подключен');
+    console.log(userId);
     socket.send(JSON.stringify({ type: 'register', userId }));
   });
 
@@ -25,6 +26,7 @@ function connectWebSocket(userId) {
         msgEl.className = 'message incoming';
         msgEl.textContent = data.text;
         messagesList.appendChild(msgEl);
+        messagesList.scrollTop = messagesList.scrollHeight;
       }
     }
   });
@@ -34,10 +36,15 @@ function connectWebSocket(userId) {
   });
 }
 
-window.currentUserId = localStorage.getItem('userId');
+window.currentUserId = sessionStorage.getItem('userId');
+console.log(window.currentUserId);
 
 if (window.currentUserId) {
-    console.log(window.currentUserId);
+  const lastChatUserId = sessionStorage.getItem('lastChatUserId');
+  if (lastChatUserId) {
+    openChatWithUser(lastChatUserId);
+  }
+  console.log(window.currentUserId);
   connectWebSocket(window.currentUserId);
 } else {
   // Если нет userId — редиректим на страницу входа
@@ -45,7 +52,7 @@ if (window.currentUserId) {
 }
 
 // Отправка сообщения
-function sendMessage(text, toUserId) {
+async function sendMessage(text, toUserId) {
   if (!socket || socket.readyState !== WebSocket.OPEN){
     console.log('WS не открыт, сообщение не отправлено');
     return;
@@ -64,6 +71,37 @@ function sendMessage(text, toUserId) {
   };
   console.log('Отправка сообщения:', { from: window.currentUserId, to: toUserId, text });
 
+  const chatList = document.getElementById('chat-list');
+  const existingChat = document.querySelector(`#chat-list li[data-id="${toUserId}"]`);
+
+  if (!existingChat) {
+    try {
+      const res = await fetch(`/api/users/${toUserId}`);
+      const userData = await res.json();
+
+      const newChatItem = document.createElement('li');
+      newChatItem.dataset.id = toUserId;
+      newChatItem.textContent = userData.name || toUserId;
+      newChatItem.className = 'chat-item';
+
+      newChatItem.addEventListener('click', () => {
+        openChatWithUser(toUserId);
+      });
+
+      chatList.appendChild(newChatItem);
+    } catch (err) {
+      console.error('Ошибка при загрузке имени пользователя:', err);
+    }
+  }
+
+  fetch('/api/chats', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    user1: window.currentUserId,
+    user2: toUserId
+  })
+}).catch(err => console.error('Ошибка создания чата:', err)); 
 
   socket.send(JSON.stringify(message));
 
@@ -143,6 +181,7 @@ resultsList.addEventListener('click', async (e) => {
 // Открытие чата
 async function openChatWithUser(userId) {
   try {
+    sessionStorage.setItem('lastChatUserId', userId);
     const resUser = await fetch(`/api/users/${userId}`);
     if (!resUser.ok) {
       const text = await resUser.text();
@@ -171,10 +210,12 @@ async function openChatWithUser(userId) {
     });
 
     messagesList.scrollTop = messagesList.scrollHeight;
+    
 
   } catch (err) {
     console.error('Ошибка в openChatWithUser:', err);
   }
+  
 }
 
 // Привязка к кнопке отправки
@@ -186,3 +227,44 @@ document.getElementById('sendButton').addEventListener('click', () => {
     input.value = '';
   }
 });
+
+window.addEventListener('DOMContentLoaded', async () => {
+  if (!window.currentUserId) return;
+
+  try {
+    const res = await fetch(`/api/chats?userId=${window.currentUserId}`);
+    const chats = await res.json();
+
+    for (const chat of chats) {
+      // объявляем переменную здесь, чтобы использовать дальше
+      const currentUserIdStr = String(window.currentUserId);
+      const otherUserId = chat.participants.find(id => String(id) !== currentUserIdStr);
+      console.log(otherUserId);
+      if (!otherUserId) {
+        console.error('Не удалось определить собеседника:', chat);
+        continue;
+      }
+
+      const userRes = await fetch(`/api/users/${otherUserId}`);
+      if (!userRes.ok) {
+        console.error('Ошибка при запросе пользователя', otherUserId);
+        continue;
+      }
+      const userData = await userRes.json();
+
+      const newChatItem = document.createElement('li');
+      newChatItem.dataset.id = otherUserId;
+      newChatItem.textContent = userData.name;
+      newChatItem.className = 'chat-item';
+
+      newChatItem.addEventListener('click', () => {
+        openChatWithUser(otherUserId);
+      });
+
+      document.getElementById('chat-list').appendChild(newChatItem);
+    }
+  } catch (err) {
+    console.error('Ошибка загрузки чатов:', err);
+  }
+});
+

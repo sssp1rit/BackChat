@@ -43,6 +43,25 @@ html, body {
 }
 
 /* Шаг 4: контент внутри левой панели */
+#chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.chat-item:hover {
+    background-color: #f5f5f5;
+}
 .search {  
     margin-top: 16px;
     display: flex;
@@ -99,6 +118,10 @@ html, body {
     border: 1px solid #E0E0E0;
     width: 88%;
     height: 40px;
+}
+
+#userSearch:focus{
+    outline: none;
 }
 
 #serch_chats:focus{
@@ -335,7 +358,8 @@ html, body {
 
 /* Исходящее сообщение (отправлено текущим пользователем) */
 .message.outgoing {
-    background-color: #DCF8C6;
+    background-color: #000000;
+    color: white;
     align-self: flex-end;
     margin-left: auto;
     border-bottom-right-radius: 0;
@@ -344,7 +368,7 @@ html, body {
 
 /* Входящее сообщение (получено от собеседника) */
 .message.incoming {
-    background-color: #FFFFFF;
+    background-color: #F19226;
     align-self: flex-start;
     margin-right: auto;
     border-bottom-left-radius: 0;

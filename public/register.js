@@ -16,6 +16,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
     const data = await response.json();
     if (response.ok) {
+      sessionStorage.setItem('userId', data.userId);
 
         window.location.href = 'index.html';
     } else {
