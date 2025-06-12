@@ -374,3 +374,71 @@ html, body {
     border-bottom-left-radius: 0;
     align-self: flex-start;
 }
+
+/* dark theme */
+body.dark {
+    background-color: #121212;
+    color: #E0E0E0;
+}
+
+body.dark input {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    border: 1px solid #333;
+}
+
+body.dark input::placeholder {
+    color: #aaa;
+}
+
+body.dark .log-but {
+    background-color: #f19226;
+    color: #000;
+}
+
+body.dark .log-but:hover {
+    background-color: #e08621;
+}
+
+body.dark a {
+    color: #f5f5f5;
+}
+
+body.dark .rp {
+    color: #f19226;
+}
+
+body.dark .search input {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    border: 1px solid #444;
+}
+
+body.dark .chat_window,
+body.dark .left,
+body.dark .info {
+    background-color: #1a1a1a;
+    color: #eee;
+}
+
+body.dark .chat_header,
+body.dark .bot {
+    background-color: #202020;
+    border-top: 1px solid #333;
+}
+
+body.dark .message-field {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+body.dark .settings-choise,
+body.dark .chat-choise {
+    color: #f5f5f5;
+}
+
+body.dark .settings-choise:hover,
+body.dark .chat-choise:hover {
+    background-color: #2a2a2a;
+}
