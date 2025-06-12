@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('registerBtn').addEventListener('click', async () => {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
@@ -25,4 +26,5 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     } catch (error) {
         alert('Ошибка при регистрации');
     }
+});
 });
