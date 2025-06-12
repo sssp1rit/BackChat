@@ -8,7 +8,8 @@ let messagesList = document.querySelector('.messages-list');
 // Подключение к WebSocket
 function connectWebSocket(userId) {
     console.log("web-sock for", userId);
-  socket = new WebSocket(`ws://${location.host}`);
+  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  socket = new WebSocket(`${protocol}://${location.host}`);
 
   socket.addEventListener('open', () => {
     console.log('✅ WebSocket подключен');
