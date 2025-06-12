@@ -8,19 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <script>
-        function applyTheme(theme) {
-            if (theme === 'dark') {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-            }
-            }
-
-            // Загружаем сохранённую тему при старте
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            applyTheme(savedTheme);
-    </script>
+    
 </head>
 <body>
     <div class="main">
@@ -75,16 +63,21 @@
             </div>
             
         </div>
-        <div class="info">
-            <div class="info-container">
-                <div class="companion-logo-info"></div>
-                <div class="name-info">Name</div>
-                <a class="info-button">view profile</a>
-            </div>
-            
-        </div>
     </div>
 
+    <script>
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+            }
+
+            // Загружаем сохранённую тему при старте
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+    </script>
     <script src="script.js"></script>
     
 </body>

@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User'); // модель пользователя
 
+
+
 router.get('api/search', async (req, res) => {
   const query = req.query.query;
   if (!query) {
