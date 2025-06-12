@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Настройки</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <div class="settings-container">
+    <button class="back-button" onclick="window.location.href='index.html'">← Назад в чат</button>
+
+    <h1>Настройки</h1>
+    <h1>Настройки</h1>
+
+    <section class="section">
+      <h2>Смена темы</h2>
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeSwitch">
+        <span class="slider"></span>
+        <span class="label">Тёмная тема</span>
+      </label>
+    </section>
+
+    <section class="section">
+      <h2>Сменить ник</h2>
+      <form id="nicknameForm">
+        <input type="text" id="newNickname" placeholder="Новый ник" required>
+        <button type="submit">Сохранить</button>
+      </form>
+    </section>
+
+    <section class="section">
+      <h2>Сменить пароль</h2>
+      <form id="passwordForm">
+        <input type="password" id="oldPassword" placeholder="Старый пароль" required>
+        <input type="password" id="newPassword" placeholder="Новый пароль" required>
+        <button type="submit">Обновить</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

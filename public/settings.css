@@ -1,0 +1,119 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --accent-color: #d88c4e;
+  --input-bg: #f7f4f1;
+  --button-bg: #d88c4e;
+  --button-text: #ffffff;
+}
+
+body.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #f2f2f2;
+  --input-bg: #2a2a2a;
+  --button-bg: #b56c35;
+  --button-text: #ffffff;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 2rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+.settings-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  margin-bottom: 0.5em;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 4px;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #b36a30;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle .slider {
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  margin-right: 10px;
+  transition: background 0.3s;
+}
+
+.theme-toggle .slider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+#themeSwitch:checked + .slider {
+  background: var(--accent-color);
+}
+
+#themeSwitch:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.back-button {
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  color: var(--text-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+}
