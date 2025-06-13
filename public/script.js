@@ -49,7 +49,7 @@ if (window.currentUserId) {
   connectWebSocket(window.currentUserId);
 } else {
   // Если нет userId — редиректим на страницу входа
-  // window.location.href = 'login.html';
+  window.location.href = 'login.html';
 }
 
 // Отправка сообщения
