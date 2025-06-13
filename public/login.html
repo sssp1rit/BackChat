@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Вход в BackChat</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <div class="logo">Back<div class="rp">Chat</div></div>
-        <div class="login">Войдите</div>
-        <div class="enter">Введите логин и пароль, чтобы войти</div>
-        <div class="inputs">
-            <input id="username" type="text" placeholder="username" class="username" required>
-            <input id="password" type="password" placeholder="password" class="password" required>
-            <button id="loginBtn" class="log-but">Войти</button>
-        </div>
+  <div class="container">
+    <div class="logo">Back<span class="rp">Chat</span></div>
+    <h1 class="login-title">Войдите</h1>
+    <p class="login-subtitle">Введите логин и пароль, чтобы войти</p>
 
-        <div class="or">Или <a href="registration.html"><b>зарегистрируйтесь</b></a>, если у вас еще нет аккаунта</div>
-        </div>
-    </div>
-    <script src="login.js"></script>
+    <form class="login-form" id="loginForm">
+      <input id="username" type="text" placeholder="Имя пользователя" required />
+      <input id="password" type="password" placeholder="Пароль" required />
+      <button type="submit" id="loginBtn">Войти</button>
+    </form>
+
+    <p class="register-link">
+      Или <a href="registration.html"><strong>зарегистрируйтесь</strong></a>, если у вас ещё нет аккаунта
+    </p>
+  </div>
+
+  <script src="login.js"></script>
 </body>
 </html>
