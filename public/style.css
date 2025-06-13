@@ -291,49 +291,6 @@ html, body {
     cursor: pointer;
 }
 
-/* info */
-.info{
-    display: flex;
-    justify-content: center;
-    border-left: 1px solid #E0E0E0;
-}
-
-.companion-logo-info{
-    width: 128px;
-    height: 128px;
-    background-color: gray;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 21px;
-}
-
-.info-container{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-.info-button{
-    margin-top: 55px;
-    width: 81%;
-    height: 40px;
-    border-radius: 8px;
-    background-color: #000000;
-    color: #FFFFFF;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-.info-button:hover{
-    background-color: #292929;
-    cursor: pointer;
-}
-
 /* messages */
 .messages-list {
     flex: 1;
