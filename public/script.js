@@ -193,7 +193,6 @@ async function openChatWithUser(userId) {
     const userData = await resUser.json();
 
     document.querySelector('.chat-title').textContent = userData.name;
-    document.querySelector('.name-info').textContent = userData.name;
 
     window.currentChatUserId = userId;
     messagesList.innerHTML = ''; // очищаем сообщения
