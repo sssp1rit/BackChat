@@ -1,9 +1,11 @@
-document.getElementById('loginBtn').addEventListener('click', async () => {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
 
   if (!username || !password) {
-    alert("Заполните все поля")
+    alert("⚠️ Пожалуйста, заполните все поля");
     return;
   }
 
@@ -15,18 +17,16 @@ document.getElementById('loginBtn').addEventListener('click', async () => {
     });
 
     const data = await response.json();
+
     if (response.ok) {
-
-
-      // Сохраняем userId
       sessionStorage.setItem('userId', data.userId);
       console.log('Сохраняем userId:', data.userId);
-
-        window.location.href = 'index.html';
+      window.location.href = 'index.html';
     } else {
-        alert(`⚠️ Ошибка`);
+      alert(`⚠️ Ошибка: ${data.message || 'Неверный логин или пароль'}`);
     }
-    } catch (error) {
-        alert('Ошибка при регистрации');
-    }
+  } catch (error) {
+    console.error(error);
+    alert('⚠️ Ошибка при попытке входа. Попробуйте позже.');
+  }
 });
