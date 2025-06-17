@@ -65,4 +65,38 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+//password update
+router.put('/:id/password', async (req, res) => {
+  const userId = req.params.id;
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ error: 'Оба пароля обязательны' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'Пользователь не найден' });
+
+    // Проверка старого пароля
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Неверный старый пароль' });
+    }
+
+    // Хэширование нового пароля
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Обновление
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Пароль успешно обновлён' });
+  } catch (err) {
+    console.error('Ошибка при смене пароля:', err);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
+
 module.exports = router;
