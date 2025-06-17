@@ -258,7 +258,7 @@ async function openChatWithUser(userId) {
 
     document.querySelector('.chat-title').textContent = userData.name;
     const companionLogo = document.querySelector('.companion-logo');
-    companionLogo.innerHTML = `<img src="${userData.avatarUrl || 'default-avatar.png'}" alt="avatar" class="chat-avatar-large" />`;
+    companionLogo.innerHTML = `<img src="${userData.avatarUrl || 'saved.png'}" alt="avatar" class="chat-avatar-large" />`;
 
     document.querySelector('.chat-title').textContent = userData.name;
 
