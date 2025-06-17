@@ -77,7 +77,7 @@ function connectWebSocket(userId) {
 
     if (data.type === 'message') {
       if (data.from === window.currentChatUserId) {
-        moveUserToTop(from);
+        moveUserToTop(data.from);
         console.log("fkjsafds");
         const msgEl = document.createElement('div');
         msgEl.className = 'message incoming';
