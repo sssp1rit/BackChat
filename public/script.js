@@ -330,6 +330,16 @@ window.addEventListener('DOMContentLoaded', async () => {
       });
 
       document.getElementById('chat-list').appendChild(newChatItem);
+      
+      const unreadRes = await fetch(`/api/messages/${otherUserId}?currentUserId=${window.currentUserId}`);
+      const messages = await unreadRes.json();
+
+      // Если есть сообщения, и чат НЕ открыт - обновляем бейдж
+      if (messages.length > 0 && window.currentChatUserId !== otherUserId) {
+        unreadCounts[otherUserId] = (unreadCounts[otherUserId] || 0) + messages.length;
+        updateUnreadBadge(otherUserId);
+        moveUserToTop(otherUserId);
+      }
     }
   } catch (err) {
     console.error('Ошибка загрузки чатов:', err);
