@@ -52,7 +52,7 @@ router.put('/:id', async (req, res) => {
       return res.status(400).json({ error: 'Имя не может быть пустым' });
     }
 
-    const user = await User.findByIdAndUpdate(userId, { name }, { new: true });
+    const user = await User.findByIdAndUpdate(userId, { username: name }, { new: true });
 
     if (!user) {
       return res.status(404).json({ error: 'Пользователь не найден' });
