@@ -56,9 +56,9 @@ function connectWebSocket(userId) {
         messagesList.scrollTop = messagesList.scrollHeight;
       }else {
         // Чат не открыт — увеличиваем счётчик
-        unreadCounts[from] = (unreadCounts[from] || 0) + 1;
-        updateUnreadBadge(from);
-        moveUserToTop(from);
+        unreadCounts[data.from] = (unreadCounts[data.from] || 0) + 1;
+        updateUnreadBadge(data.from);
+        moveUserToTop(data.from);
       }
     }
   });
