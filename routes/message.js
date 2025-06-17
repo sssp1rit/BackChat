@@ -41,9 +41,13 @@ router.post('/', async (req, res) => {
 router.get('/unreadCounts/:userId', async (req, res) => {
   const userId = req.params.userId;
 
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Некорректный userId' });
+  }
+
   try {
     const counts = await Message.aggregate([
-      { $match: { to: mongoose.Types.ObjectId(userId), read: false } },
+      { $match: { to: new mongoose.Types.ObjectId(userId), read: false } },
       { $group: { _id: '$from', count: { $sum: 1 } } }
     ]);
     // counts будет вида [{ _id: ObjectId(...), count: N }, ...]
