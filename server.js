@@ -32,6 +32,9 @@ app.use('/api/search', searchRoutes);
 const messageRoutes = require('./routes/message');
 app.use('/api/messages', messageRoutes);
 
+const Message = require('./models/Message');
+app.use('/api/messages', Message);
+
 const chatRoutes = require('./routes/chat');
 app.use(chatRoutes);
 
