@@ -47,6 +47,7 @@ function connectWebSocket(userId) {
 
     if (data.type === 'message') {
       if (data.from === window.currentChatUserId) {
+        moveUserToTop(from);
         console.log("fkjsafds");
         const msgEl = document.createElement('div');
         msgEl.className = 'message incoming';
@@ -101,7 +102,7 @@ async function sendMessage(text, toUserId) {
     text
   };
   console.log('Отправка сообщения:', { from: window.currentUserId, to: toUserId, text });
-
+  moveUserToTop(toUserId);
   const chatList = document.getElementById('chat-list');
   const existingChat = document.querySelector(`#chat-list li[data-id="${toUserId}"]`);
 
