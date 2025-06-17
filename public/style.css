@@ -280,7 +280,7 @@ body {
 .message.incoming {
   align-self: flex-start;
   background-color: var(--bg-highlight);
-  color: var(--text-primary);
+  color: var(--text-white);
   border-bottom-left-radius: 0;
 }
 
