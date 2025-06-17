@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData();
       formData.append('username', username);
       formData.append('password', password);
-      if (avatarFile) {
-        formData.append('avatar', avatarFile);
-      }
 
       const response = await fetch('/api/register', {
         method: 'POST',
@@ -44,24 +41,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
-const avatarInput = document.getElementById("avatar");
-const avatarPreview = document.getElementById("avatarPreview");
-
-// При клике по кружку — открываем проводник
-avatarPreview.addEventListener("click", () => {
-  avatarInput.click();
-});
-
-// При выборе файла — обновляем фон превью
-avatarInput.addEventListener("change", (event) => {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith("image/")) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      avatarPreview.style.backgroundImage = `url(${e.target.result})`;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
