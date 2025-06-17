@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
     const avatarInput = document.getElementById('avatar');
+    const avatarFile = avatarInput.files[0];
 
     if (!username || !password) {
       alert("⚠️ Пожалуйста, заполните все поля");
