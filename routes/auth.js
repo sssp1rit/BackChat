@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 
 router.post('/register', async (req, res) => {
@@ -14,8 +18,11 @@ router.post('/register', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
+    const avatarBuffer = req.file ? req.file.buffer : null;
+    const newUser = new User({ username, password: hashedPassword, avatar: avatarBuffer });
+
     await newUser.save();
+    
     res.status(201).json({ 
       message: 'Регистрация успешна', 
       userId: newUser._id.toString() 

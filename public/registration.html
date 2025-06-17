@@ -18,6 +18,11 @@
     <form class="register-form" id="registerForm">
       <input id="username" type="text" placeholder="Имя пользователя" required />
       <input id="password" type="password" placeholder="Пароль" required />
+
+      <label for="avatar" class="avatar-label">Выберите аватар</label>
+      <div class="avatar-preview" id="avatarPreview"></div>
+      <input id="avatar" name="avatar" type="file" accept="image/*" required />
+
       <button type="submit" id="registerBtn">Зарегистрироваться</button>
     </form>
 

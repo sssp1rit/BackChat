@@ -362,3 +362,26 @@ body.dark .chat-choise:hover,
 body.dark .settings-choise:hover {
   background-color: #2a2a2a;
 }
+
+
+/* avatar */
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+#chat-list li {
+  display: flex;
+  align-items: center;
+}
+
+.chat-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}

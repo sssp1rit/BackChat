@@ -143,7 +143,10 @@ async function sendMessage(text, toUserId) {
 
       const newChatItem = document.createElement('li');
       newChatItem.dataset.id = toUserId;
-      newChatItem.textContent = userData.name || toUserId;
+      newChatItem.innerHTML = `
+        <img src="${userData.avatarUrl || 'default-avatar.png'}" alt="avatar" class="chat-avatar" />
+        <span>${userData.name}</span>
+      `;
       newChatItem.className = 'chat-item';
 
       newChatItem.addEventListener('click', () => {
@@ -254,6 +257,11 @@ async function openChatWithUser(userId) {
     const userData = await resUser.json();
 
     document.querySelector('.chat-title').textContent = userData.name;
+    const companionLogo = document.querySelector('.companion-logo');
+    companionLogo.innerHTML = `<img src="${userData.avatarUrl || 'default-avatar.png'}" alt="avatar" class="chat-avatar-large" />`;
+
+    document.querySelector('.chat-title').textContent = userData.name;
+
 
     window.currentChatUserId = userId;
     messagesList.innerHTML = ''; // очищаем сообщения

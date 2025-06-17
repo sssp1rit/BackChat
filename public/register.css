@@ -133,3 +133,37 @@ a:hover {
     font-size: 14px;
   }
 }
+
+
+/* === Avatar Upload Block === */
+
+.avatar-label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+#avatar {
+  display: none;
+}
+
+.avatar-preview {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background-color: var(--bg-muted);
+  background-size: cover;
+  background-position: center;
+  border: 2px dashed var(--input-border);
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.avatar-preview:hover {
+  border-color: var(--bg-highlight);
+}
