@@ -4,7 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 
-router.post('/register', upload.single('avatar'), async (req, res) => {
+router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
   try {
