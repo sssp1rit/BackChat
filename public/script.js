@@ -4,6 +4,31 @@ let socket = null;
 window.currentChatUserId = null;
 window.currentUserId = null; // установи текущий ID пользователя после логина
 let messagesList = document.querySelector('.messages-list');
+const unreadCounts = {};
+
+function updateUnreadBadge(userId) {
+  const chatItem = document.querySelector(`#chat-list li[data-id="${userId}"]`);
+  if (!chatItem) return;
+
+  let badge = chatItem.querySelector('.unread-badge');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'unread-badge';
+    chatItem.appendChild(badge);
+  }
+
+  badge.textContent = unreadCounts[userId];
+  badge.style.display = unreadCounts[userId] > 0 ? 'inline-block' : 'none';
+}
+
+function moveUserToTop(userId) {
+  const chatList = document.getElementById('chat-list');
+  const chatItem = document.querySelector(`#chat-list li[data-id="${userId}"]`);
+  if (chatItem) {
+    chatList.prepend(chatItem);
+  }
+}
+
 
 // Подключение к WebSocket
 function connectWebSocket(userId) {
@@ -28,6 +53,11 @@ function connectWebSocket(userId) {
         msgEl.textContent = data.text;
         messagesList.appendChild(msgEl);
         messagesList.scrollTop = messagesList.scrollHeight;
+      }else {
+        // Чат не открыт — увеличиваем счётчик
+        unreadCounts[from] = (unreadCounts[from] || 0) + 1;
+        updateUnreadBadge(from);
+        moveUserToTop(from);
       }
     }
   });
@@ -208,6 +238,9 @@ async function openChatWithUser(userId) {
       console.log(msg.from, window.currentUserId);
       messagesList.appendChild(msgEl);
     });
+    unreadCounts[userId] = 0;
+    updateUnreadBadge(userId);  
+
 
     messagesList.scrollTop = messagesList.scrollHeight;
     

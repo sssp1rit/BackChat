@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!username || !password) {
       alert("⚠️ Пожалуйста, заполните все поля");
       return;
+    }else if(password.length < 8){
+      alert("Пароль должен содержать не меньше 8 символов");
+      return;
     }
 
     try {
