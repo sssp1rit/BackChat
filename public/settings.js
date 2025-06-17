@@ -15,24 +15,24 @@ if (localStorage.getItem('theme') === 'dark') {
 }
 
 // Обработка формы смены ника
-// document.getElementById('nicknameForm').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-//   const newNick = document.getElementById('newNickname').value.trim();
-//   if (newNick) {
-//     try {
-//       const userId = sessionStorage.getItem('userId');
-//       const res = await fetch(`/api/users/${userId}`, {
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ name: newNick })
-//       });
-//       if (res.ok) alert('Ник успешно обновлён');
-//       else alert('Ошибка при обновлении ника');
-//     } catch (err) {
-//       alert('Сетевая ошибка');
-//     }
-//   }
-// });
+document.getElementById('nicknameForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const newNick = document.getElementById('newNickname').value.trim();
+  if (newNick) {
+    try {
+      const userId = sessionStorage.getItem('userId');
+      const res = await fetch(`/api/users/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newNick })
+      });
+      if (res.ok) alert('Ник успешно обновлён');
+      else alert('Ошибка при обновлении ника');
+    } catch (err) {
+      alert('Сетевая ошибка');
+    }
+  }
+});
 
 // // Обработка формы смены пароля
 // document.getElementById('passwordForm').addEventListener('submit', async (e) => {

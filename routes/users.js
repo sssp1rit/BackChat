@@ -42,5 +42,27 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+//nickname update
+router.put('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { name } = req.body;
+
+    if (!name || name.trim() === '') {
+      return res.status(400).json({ error: 'Имя не может быть пустым' });
+    }
+
+    const user = await User.findByIdAndUpdate(userId, { name }, { new: true });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Пользователь не найден' });
+    }
+
+    res.json({ message: 'Ник обновлён', user });
+  } catch (err) {
+    console.error('Ошибка при обновлении ника:', err);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
 
 module.exports = router;
