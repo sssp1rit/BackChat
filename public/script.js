@@ -6,6 +6,36 @@ window.currentUserId = null; // установи текущий ID пользо�
 let messagesList = document.querySelector('.messages-list');
 const unreadCounts = {};
 
+async function markMessagesAsRead(chatUserId) {
+  try {
+    await fetch('/api/messages/markAsRead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ currentUserId: window.currentUserId, chatUserId })
+    });
+    unreadCounts[chatUserId] = 0;
+    updateUnreadBadge(chatUserId);
+  } catch (err) {
+    console.error('Ошибка при пометке сообщений как прочитанными', err);
+  }
+}
+
+
+async function loadUnreadCounts(userId) {
+  try {
+    const res = await fetch(`/api/messages/unreadCounts/${userId}`);
+    const counts = await res.json();
+    counts.forEach(({ _id, count }) => {
+      unreadCounts[_id] = count;
+      updateUnreadBadge(_id);
+      moveUserToTop(_id);
+    });
+  } catch (err) {
+    console.error('Ошибка загрузки непрочитанных сообщений', err);
+  }
+}
+
+
 function updateUnreadBadge(userId) {
   const chatItem = document.querySelector(`#chat-list li[data-id="${userId}"]`);
   if (!chatItem) return;
@@ -78,6 +108,8 @@ if (window.currentUserId) {
   }
   console.log(window.currentUserId);
   connectWebSocket(window.currentUserId);
+
+  loadUnreadCounts(window.currentUserId);
 } else {
   // Если нет userId — редиректим на страницу входа
   window.location.href = 'login.html';
@@ -241,6 +273,8 @@ async function openChatWithUser(userId) {
     });
     unreadCounts[userId] = 0;
     updateUnreadBadge(userId);  
+
+    await markMessagesAsRead(userId);
 
 
     messagesList.scrollTop = messagesList.scrollHeight;
