@@ -37,9 +37,6 @@ const Message = require('./models/Message');
 const chatRoutes = require('./routes/chat');
 app.use(chatRoutes);
 
-const avatarRoute = require('./routes/avatar');
-app.use('/avatar', avatarRoute);
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
