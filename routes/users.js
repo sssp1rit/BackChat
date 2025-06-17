@@ -91,11 +91,9 @@ router.put('/:id/password', async (req, res) => {
     // Обновление
     user.password = hashedPassword;
     await user.save();
-    alert("password updated");
     res.json({ message: 'Пароль успешно обновлён' });
   } catch (err) {
     console.error('Ошибка при смене пароля:', err);
-    alert("error");
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });
