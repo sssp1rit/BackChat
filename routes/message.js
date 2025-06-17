@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 // Получить историю сообщений между двумя пользователями
 router.get('/:userId', async (req, res) => {
