@@ -69,4 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('theme', theme);
     applyTheme(theme);
   });
+
+  const logoutButton = document.getElementById('logoutButton');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      sessionStorage.clear(); // очищаем все данные сессии
+      window.location.href = 'login.html'; // перенаправляем на вход
+    });
+  }
 });
