@@ -14,14 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('password', password);
-
       const response = await fetch('/api/register', {
         method: 'POST',
-        body: formData,
-        // заголовок Content-Type не нужен — браузер его установит автоматически
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
       });
 
       const data = await response.json();

@@ -9,7 +9,7 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGO_URI, {
